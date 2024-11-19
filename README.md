@@ -19,8 +19,11 @@ Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de
 - **index.php**: Página de inicio que muestra información general sobre el gimnasio.
 - **citas.php**: Sección para gestionar y programar citas.
 - **noticias.php**: Sección para ver las últimas noticias y actualizaciones.
-- **menu.css**: Archivo de estilos CSS que define el diseño de la barra de navegación.
-
+- **testimonios.php**: Sección para ver los testimonios de clientes.
+- **servicios.php**: Sección para ver los servicios disponibles.
+- **login.php**: Página de inicio de sesión.
+- **socios.php**: Sección para gestionar los socios.
+   
 ## Instalación y Configuración
 
 1. **Requisitos**:
@@ -46,12 +49,11 @@ Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de
 
 ## Capturas de Pantalla
 
-_Agrega aquí capturas de pantalla del diseño de tu aplicación para ilustrar las diferentes secciones._
+![alt text](img/assets/github.png)
 
 ## Créditos
 
-- Desarrollado por: _Tu Nombre_
-- Diseño del logo y elementos gráficos por: _Créditos correspondientes_
+- Desarrollado por: _Gonzalo Sanchez Calvente_
 
 ## Licencia
 
