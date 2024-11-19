@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap');
+
+/* Variables de colores */
+:root {
+    --color-fondo: #1a1a1a;
+    --color-texto: #ffffff;
+    --color-primario: #e63946;
+    --color-secundario: #ff1c1c;
+    --color-form-fondo: #2a2a2a;
+    --color-sombra: rgba(0, 0, 0, 0.5);
+    --color-mensaje: #3a3a3a;
+    --color-mensaje-error: #f8d7da;
+    --color-borde-error: #f44336;
+    --color-link: #e63946;
+    --color-boton: #e63946;
+    --color-boton-hover: #ff4d4d;
+}
+
+/* Calendario */
+.calendar {
+    width: 100%;
+    max-width: 450px; /* Reducción del tamaño máximo */
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #2a2a2a;
+    box-shadow: 0 4px 8px var(--color-sombra);
+}
+
+.calendar th {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+    padding: 6px; /* Menos padding para celdas de encabezado */
+    font-size: 0.95em; /* Reducción del tamaño de texto */
+}
+
+.calendar td {
+    width: 14.28%;
+    padding: 8px; /* Menos padding en las celdas */
+    text-align: center;
+    border: 1px solid #444;
+    position: relative;
+    font-size: 0.8em; /* Tamaño de fuente más pequeño */
+}
+
+.calendar td:hover {
+    background-color: var(--color-secundario);
+    cursor: pointer;
+}
+
+.current-day {
+    background: radial-gradient(circle, #FFD700 5%, transparent 50%);
+    font-weight: bold;
+    color: #333;
+    border-radius: 50%;
+}
+
+/* Citas dentro de las celdas */
+.calendar td .cita {
+    color: var(--color-texto);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--color-primario);
+    padding: 3px; /* Menos padding */
+    margin: 3px 0; /* Márgenes más pequeños */
+    border-radius: 3px;
+    font-size: 1.2em; /* Texto aún más pequeño */
+    word-wrap: break-word;
+    text-align: left;
+    text-decoration: none;
+}
+
+/* Botones de navegación */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 8px; /* Espacio más pequeño entre botones */
+}
+
+.button {
+    text-decoration: none;
+    color: var(--color-texto);
+    background-color: var(--color-primario);
+    padding: 6px 12px; /* Menos padding */
+    border-radius: 5px;
+    margin: 0;
+    transition: background-color 0.3s;
+    text-align: center;
+    flex: 1;
+    font-size: 0.85em; /* Ajuste del tamaño de texto */
+}
+
+.button:hover {
+    background-color: var(--color-secundario);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .calendar {
+        max-width: 75%;
+    }
+
+    .calendar th,
+    .calendar td {
+        padding: 5px; /* Menos padding para pantallas medianas */
+        font-size: 0.75em; /* Reducción adicional del tamaño del texto */
+    }
+
+    .calendar td .cita {
+        font-size: 0.6em; /* Citas aún más pequeñas */
+        padding: 2px;
+    }
+
+    .nav-buttons .button {
+        padding: 5px 10px; /* Menos padding para pantallas más pequeñas */
+        font-size: 0.75em; /* Ajuste en el tamaño de los botones */
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar {
+        max-width: 75%;
+    }
+
+    .calendar th,
+    .calendar td {
+        padding: 4px; /* Menos padding en celdas */
+        font-size: 0.65em; /* Texto más pequeño */
+    }
+
+    .calendar td .cita {
+        font-size: 0.55em; /* Citas más pequeñas */
+        padding: 1px;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .nav-buttons .button {
+        padding: 7px;
+        font-size: 0.7em; /* Botones más pequeños */
+    }
+
+
+}

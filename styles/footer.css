@@ -1,0 +1,58 @@
+:root {
+    --color-fondo: #1a1a1a; /* Fondo oscuro */
+    --color-texto: #ffffff; /* Texto blanco */
+    --color-primario: #e63946; /* Rojo vibrante */
+    --color-secundario: #ff1c1c; /* Rojo más claro */
+    --color-fondo-seccion: #2a2a2a; /* Fondo gris oscuro para secciones */
+    --color-hover: #ff4d4d; /* Color para hover */
+    --color-sombra: rgba(0, 0, 0, 0.5); /* Sombra */
+    --color-footer: #111; /* Fondo del footer */
+    --color-enlace-footer: #e63946; /* Color de enlaces del footer */
+}
+
+/* Estilo del footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-footer);
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-texto);
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px var(--color-sombra);
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0px -2px 5px var(--color-sombra);
+}
+
+/* Estilo de los enlaces del footer */
+footer a {
+    color: var(--color-enlace-footer);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--color-primario);
+}
+
+/* Estilo del texto del footer */
+footer p {
+    margin: 0;
+}
+
+/* Estilo de los enlaces del footer */
+footer a {
+    color: var(--color-enlace-footer);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--color-primario);
+}
+
