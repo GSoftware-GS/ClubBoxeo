@@ -16,7 +16,7 @@ Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de
 
 ## Demo
 
-Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo](http://gsanchezcalvente.000.pe/){:target="_blank"}
+Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo](http://gsanchezcalvente.000.pe/)
 
 
 ## Archivos Principales
