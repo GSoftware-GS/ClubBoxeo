@@ -14,6 +14,11 @@ Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de
 - **Gestión de Citas**: Los usuarios pueden programar y administrar citas.
 - **Visualización de Servicios, Noticias y Testimonios**: Información disponible tanto para usuarios como para visitantes.
 
+## Demo
+
+Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo](http://gsanchezcalvente.000.pe/)
+
+
 ## Archivos Principales
 
 - **index.php**: Página de inicio que muestra información general sobre el gimnasio.
