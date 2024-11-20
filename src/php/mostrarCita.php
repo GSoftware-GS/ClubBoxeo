@@ -1,11 +1,13 @@
 <?php
+include './session_start.php';
+
 
 require_once("conexion.php");
 
 $idCita = $_GET['id'];
 
 // Consulta para obtener la cita
-$consulta = "SELECT  s2.nombre, c.fecha, c.hora, s.descripcion
+$consulta = "SELECT  s2.id_socio, s2.nombre, c.fecha, c.hora, s.descripcion
     FROM citas c
     JOIN servicios s ON c.codigo_servicio = s.codigo_servicio
     JOIN socios s2 ON c.codigo_socio = s2.id_socio
@@ -23,7 +25,10 @@ if ($cita) {
     echo "<p>Fecha: " . $cita["fecha"] . "</p>";
     echo "<p>Hora: " . $cita["hora"] . "</p>";
     echo "</article>";
+    if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'admin') {
+    echo "<a href='../forms/formularioModificarCita.php?id=" . $idCita . "' class='boton'>Modificar </a>";
     echo "<a href='./eliminarCita.php?id=" . $idCita . "' class='boton'>Eliminar</a>";
+    }
 
 } else {
     echo "<p>No se ha encontrado la cita</p>";

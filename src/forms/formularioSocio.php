@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Agregar Socio</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
-    <script src="../js/validarAgregarSocio.js" defer></script>
+    <script src="../js/validarSocio.js" defer></script>
 </head>
 
 <body>

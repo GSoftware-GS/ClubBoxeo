@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Modificar Servicio</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
+    <script src="../js/validarServicio.js" defer></script>
 </head>
 
 <body>
@@ -15,12 +16,17 @@
     <form method="POST" action="">
         <label>Descripcion:</label>
         <input type="text" name="descripcion" value="<?php echo htmlspecialchars($servicio['descripcion']); ?>" required><br>
+        <span id="errorDescripcion" class="error"></span><br>
 
         <label>Duracion:</label>
         <input type="number" name="duracion" value="<?php echo htmlspecialchars($servicio['duracion']); ?>" required><br>
+        <span id="errorDuracion" class="error"></span><br>
+
 
         <label>Precio:</label>
         <input type="text" name="precio" value="<?php echo htmlspecialchars($servicio['precio']); ?>" required><br>
+        <span id="errorPrecio" class="error"></span><br>
+
 
         <input type="submit" value="Guardar cambios">
     </form>

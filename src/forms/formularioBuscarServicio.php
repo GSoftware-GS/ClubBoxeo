@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Buscar Servicio</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
+    <script src="../js/validarBuscarServicio.js" defer></script>
 
 </head>
 
@@ -16,6 +17,8 @@
         <form method="POST" action="" enctype="multipart/form-data">
             <label>Nombre:</label>
             <input type="text" name="descripcion">
+            <span id="errorDescripcion" class="error"></span><br>
+
 
             <input type="submit" value="Buscar Servicio">
         </form>

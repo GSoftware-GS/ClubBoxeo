@@ -16,17 +16,22 @@
     <!-- Contenedor principal -->
     <div class="container">
         <!-- Barra de navegación en la parte superior -->
-        
-            <?php include './src/html/menu.php'; ?>
-       
+
+        <?php include './src/html/menu.php'; ?>
+
         <section class="testimonios">
             <h1>Testimonios</h1>
             <?php include './src/php/mostrarTestimonios.php'; ?>
         </section>
+        <?php
+        if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'user') {
+        echo "<a href='./src/forms/formularioTestimonio.php' class='boton'>Agregar testimonio</a>";
+        }
+        ?>
         <!-- Footer en la parte inferior -->
-        
-            <?php include './src/html/footer.html'; ?>
-       
+
+        <?php include './src/html/footer.html'; ?>
+
     </div>
 
 
