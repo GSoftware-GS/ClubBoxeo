@@ -19,10 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("issi", $codigo_servicio, $fecha, $hora, $id);
 
     if ($stmt->execute()) {
-        echo "<div class='form-container'";
+        
         echo "<p>Datos actualizados correctamente.</p>";
-        echo "<a href='../../citas.php'>Volver a la lista de citas</a>";
-        echo "</div>";
+
     } else {
         echo "Error al actualizar los datos: " . $conexion->error;
     }

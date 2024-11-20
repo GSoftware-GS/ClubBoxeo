@@ -48,7 +48,7 @@
 }
 
 .current-day {
-    background: radial-gradient(circle, #FFD700 5%, transparent 50%);
+    background: radial-gradient(circle, #ffd90079 5%, transparent 50%);
     font-weight: bold;
     color: #333;
     border-radius: 50%;
