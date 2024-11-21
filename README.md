@@ -1,4 +1,5 @@
-![alt text](img/assets/logo.png)
+<img src="img/assets/logo.png" alt="Logo" width="200">
+
 
 # Gym Management System
 
