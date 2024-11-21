@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir cita</title>
     <link rel="stylesheet" href="./styles/formulario.css">
+    <script src="./src/js/validarCita.js" defer></script>
 </head>
 
 <body>
@@ -26,21 +27,26 @@
     <form action="./src/php/agregarCita.php" method="POST">
 
         <label for="socio">Socio:</label>
-        <select name="socio" required>
+        <select name="socio" >
+            <option value="" selected>Seleccionar socio</option>
             <?php foreach ($socios as $socio): ?>
                 <option value="<?php echo $socio['id_socio']; ?>"><?php echo $socio['nombre']; ?></option>
             <?php endforeach; ?>
-        </select><br>
+        </select>
+        <span id="errorSocio" class="error"></span><br>
 
         <label for="servicio">Servicio:</label>
-        <select name="servicio" required>
+        <select name="servicio" >
+            <option value="" selected>Seleccionar servicio</option>
             <?php foreach ($servicios as $servicio): ?>
                 <option value="<?php echo $servicio['codigo_servicio']; ?>"><?php echo $servicio['descripcion']; ?></option>
             <?php endforeach; ?>
-        </select><br>
+        </select>
+        <span id="errorServicio" class="error"></span><br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" required><br>
+        <input type="date" name="fecha" required>
+        <span id="errorFecha" class="error"></span><br>
 
         <div class="input-container">
             <label for="hora">Hora:</label>

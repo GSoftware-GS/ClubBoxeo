@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Buscar Cita</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
-
 </head>
 
 <body>
@@ -36,6 +35,8 @@
                         <option value="<?php echo $socio['id_socio']; ?>"><?php echo $socio['nombre']; ?></option>
                     <?php endforeach; ?>
                 </select><br>
+                <span id="errorSocio" class="error"></span><br>
+
 
                 <label for="servicio">Servicio:</label>
                 <select name="servicio" >
@@ -45,9 +46,12 @@
                         </option>
                     <?php endforeach; ?>
                 </select><br>
+                <span id="errorServicio" class="error"></span><br>
+
 
                 <label>Fecha:</label>
                 <input type="date" name="fecha">
+                <span id="errorFecha" class="error"></span><br>
 
                 <input type="submit" value="Buscar Cita">
             </form>

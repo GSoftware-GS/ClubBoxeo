@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar cita</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
+    <script src="../js/validarModificarCita.js" defer></script>
 </head>
 
 <body>
@@ -38,6 +39,7 @@
                     
                         <label for="servicio">Servicio:</label>
                         <select name="servicio" required>
+                        <option value="" >Seleccionar servicio</option>
                             <?php foreach ($servicios as $servicio): ?>
                                 <option value="<?php echo $servicio['codigo_servicio']; ?>"
                                     <?php echo $servicio['codigo_servicio'] == $cita['codigo_servicio'] ? 'selected' : ''; ?>>
@@ -45,9 +47,13 @@
                                 </option>
                             <?php endforeach; ?>
                         </select><br>
+                        <span id="errorServicio" class="error"></span><br>
+
 
                         <label for="fecha">Fecha:</label>
                         <input type="date" name="fecha" value="<?php echo $cita['fecha']; ?>" required><br>
+                        <span id="errorFecha" class="error"></span><br>
+
 
                         <div class="input-container">
                             <label for="hora">Hora:</label>

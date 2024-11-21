@@ -20,6 +20,7 @@ $servicios = $conexion->query($sqlServicios);
     <meta charset="UTF-8">
     <title>Agregar Testimonio</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
+    <script src="../js/validarTestimonio.js" defer></script>
 </head>
 
 <body>
@@ -43,13 +44,16 @@ $servicios = $conexion->query($sqlServicios);
             <form method="POST" action="" enctype="multipart/form-data">
                 <label for="socio">Socio:</label>
                 <select name="socio" required>
+                <option value="" selected>Elige un socio</option>
                     <?php foreach ($socios as $socio): ?>
                         <option value="<?php echo $socio['id_socio']; ?>"><?php echo $socio['nombre']; ?></option>
                     <?php endforeach; ?>
                 </select><br>
+                <span id="errorSocio" class="error"></span><br>
 
                 <label>contenido:</label>
                 <textarea id="contenido" name="contenido" required></textarea>
+                <span id="errorContenido" class="error"></span><br>
 
                 <input type="submit" value="Añadir Testimonio">
             </form>

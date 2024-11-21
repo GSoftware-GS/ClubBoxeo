@@ -194,7 +194,7 @@ input[type="radio"] {
 /* Botón personalizado */
 .boton {
     background-color: var(--color-boton);
-    color: #eae8d3;
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -228,12 +228,12 @@ span.result {
 
 span.mal {
     color: red;
-    background-image: url("../img/assets/error.png");
+    
 }
 
 span.bien {
     color: green;
-    background-image: url("../img/assets/ok.png");
+    
 }
 
 /* Responsividad */
