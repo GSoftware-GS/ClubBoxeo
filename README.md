@@ -62,6 +62,7 @@ Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo
 
 ## Capturas de Pantalla
 
+![alt text](img/assets/github(2).png)
 ![alt text](img/assets/github.png)
 
 ## Créditos
