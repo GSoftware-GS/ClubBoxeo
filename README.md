@@ -1,4 +1,6 @@
-<img src="img/assets/logo.png" alt="Logo" width="200">
+<p align="center">
+  <img src="img/assets/logo.png" alt="Logo" width="200">
+</p>
 
 
 # Gym Management System
