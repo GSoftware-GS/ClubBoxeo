@@ -13,7 +13,7 @@
     <div class="box">
     <div class="form-container">
         <?php include '../php/buscarServicio.php'; ?>
-        <h1>Añadir nuevo socio</h1>
+        <h1>Buscar servicio</h1>
         <form method="POST" action="" enctype="multipart/form-data">
             <label>Nombre:</label>
             <input type="text" name="descripcion">

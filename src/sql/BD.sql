@@ -71,9 +71,9 @@ VALUES ('User', 'user', 'user', 'user', 'user@clubboxeo.com');
 -- Insertar datos en la tabla socios
 INSERT INTO socios (nombre, edad, contraseña, usuario, telefono, foto)
 VALUES 
-('Carlos Márquez', 30, 'golpefuerte123', 'cmarquez', '612345678', '/img/usuarios/1.jpeg'),
-('José Rivera', 25, 'puñopoderoso456', 'jrivera', '622345678', '/img/usuarios/2.jpeg'),
-('Miguel Santos', 28, 'boxeador789', 'msantos', '632345678', '/img/usuarios/3.jpeg');
+('Carlos Márquez', 30, 'golpefuerte123', 'cmarquez', '+34612345678', '/img/usuarios/1.jpeg'),
+('José Rivera', 25, 'puñopoderoso456', 'jrivera', '+34622345678', '/img/usuarios/2.jpeg'),
+('Miguel Santos', 28, 'boxeador789', 'msantos', '+34 632345678', '/img/usuarios/3.jpeg');
 
 -- Insertar datos en la tabla servicios
 INSERT INTO servicios (descripcion, duracion, precio)

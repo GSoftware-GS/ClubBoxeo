@@ -17,8 +17,14 @@ $totalNoticias = $totalNoticiasResultado->fetch_assoc()['total'];
 // Calcular el total de páginas
 $totalPaginas = ceil($totalNoticias / $noticiasPorPagina);
 
-// Consulta para obtener las noticias de la página actual
-$consulta = "SELECT * FROM noticias LIMIT $offset, $noticiasPorPagina";
+if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'user') {
+    $fechaActual = date('Y-m-d'); // Obtener la fecha actual
+    $consulta = "SELECT * FROM noticias WHERE fecha_publicacion <= '$fechaActual' LIMIT $offset, $noticiasPorPagina";
+} else {
+    // Si es un 'admin', no hay filtro por fecha
+    $consulta = "SELECT * FROM noticias LIMIT $offset, $noticiasPorPagina";
+}
+
 $noticias = $conexion->query($consulta);
 
 if ($noticias->num_rows > 0) {

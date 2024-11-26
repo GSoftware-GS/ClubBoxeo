@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Buscar Cita</title>
     <link rel="stylesheet" href="../../styles/formulario.css">
+    <script src="../js/validarBuscarCita.js" defer></script>
 </head>
 
 <body>
