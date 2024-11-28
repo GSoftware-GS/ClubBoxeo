@@ -45,7 +45,7 @@
         <span id="errorServicio" class="error"></span><br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" required>
+        <input type="date" name="fecha" >
         <span id="errorFecha" class="error"></span><br>
 
         <div class="input-container">
