@@ -1,42 +1,56 @@
 <?php
-   require_once("conexion.php");
+require_once("conexion.php");
 
+// Verificar si se recibe el ID de la cita
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-    // Verificar si se recibe el ID del socio
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+    // Consultar la fecha de la cita
+    $consultaFecha = "SELECT fecha FROM citas WHERE id = ?";
+    $stmtFecha = $conexion->prepare($consultaFecha);
+    $stmtFecha->bind_param("i", $id);
+    $stmtFecha->execute();
+    $resultadoFecha = $stmtFecha->get_result();
 
-        // Consultar los datos del socio por su ID
-        $consulta = "DELETE FROM citas WHERE id = ?";
-        $stmt = $conexion->prepare($consulta);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
+    if ($resultadoFecha->num_rows > 0) {
+        $fila = $resultadoFecha->fetch_assoc();
+        $fechaCita = $fila['fecha'];
+        $fechaActual = date("Y-m-d");
 
-       
+        // Verificar si la fecha de la cita es actual o pasada
+        if ($fechaCita <= $fechaActual) {
+            echo "La cita no puede eliminarse porque corresponde a una fecha pasada.";
+        } else {
+            // Eliminar la cita si es válida
+            $consultaEliminar = "DELETE FROM citas WHERE id = ?";
+            $stmtEliminar = $conexion->prepare($consultaEliminar);
+            $stmtEliminar->bind_param("i", $id);
+            $stmtEliminar->execute();
+
+            if ($stmtEliminar->affected_rows > 0) {
+                echo "Cita eliminada exitosamente.";
+            } else {
+                echo "No se pudo eliminar la cita.";
+            }
+        }
     } else {
-        echo "ID de cita no especificado.";
-        exit;
+        echo "Cita no encontrada.";
     }
-    if ($stmt->affected_rows > 0) {
-        echo "Cita eliminada exitosamente.";
-    } else {
-        echo "No se pudo eliminar la cita.";
-    }
+} else {
+    echo "ID de cita no especificado.";
+}
 
-    echo "<a href='../../citas.php' class='boton'>Volver a citas</a>";
+echo "<a href='../../citas.php' class='boton'>Volver a citas</a>";
 
-    $conexion->close();
+$conexion->close();
+?>
 
 
-    ?>  
-
-    <html>
+<html>
         <head>
-            <title>Eliminar socio</title>
+            <title>Eliminar Cita</title>
             <link rel="stylesheet" href="../../styles/style.css">
         </head>
         <body>
         </body>
     </html>
-
