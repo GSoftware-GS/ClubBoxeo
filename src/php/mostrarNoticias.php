@@ -19,10 +19,10 @@ $totalPaginas = ceil($totalNoticias / $noticiasPorPagina);
 
 if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'user') {
     $fechaActual = date('Y-m-d'); // Obtener la fecha actual
-    $consulta = "SELECT * FROM noticias WHERE fecha_publicacion <= '$fechaActual' LIMIT $offset, $noticiasPorPagina";
+    $consulta = "SELECT * FROM noticias WHERE fecha_publicacion <= '$fechaActual'  ORDER BY fecha_publicacion DESC LIMIT $offset, $noticiasPorPagina";
 } else {
     // Si es un 'admin', no hay filtro por fecha
-    $consulta = "SELECT * FROM noticias LIMIT $offset, $noticiasPorPagina";
+    $consulta = "SELECT * FROM noticias  ORDER BY fecha_publicacion DESC LIMIT $offset, $noticiasPorPagina";
 }
 
 $noticias = $conexion->query($consulta);
