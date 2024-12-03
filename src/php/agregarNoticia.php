@@ -5,6 +5,7 @@ require_once("conexion.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'];
     $contenido = $_POST['contenido'];
+    $fecha = $_POST['fecha'];
 
     // Obtener la imagen del formulario y añadirla a la carpeta ../img
     $imagen = $_FILES['foto']['tmp_name'];
@@ -14,12 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (move_uploaded_file($imagen, $imagen_destino)) {
         $url_foto = "./img/noticias/" . $_FILES['foto']['name'];
 
-        // Fecha actual para la publicación
-        $fecha_publicacion = date("Y-m-d");
 
         // Consulta para añadir una nueva noticia
         $insertar = "INSERT INTO noticias (titulo, contenido, imagen, fecha_publicacion) 
-                     VALUES ('$titulo', '$contenido', '$url_foto', '$fecha_publicacion')";
+                     VALUES ('$titulo', '$contenido', '$url_foto', '$fecha')";
         $stmt = $conexion->prepare($insertar);
 
         if ($stmt->execute()) {
