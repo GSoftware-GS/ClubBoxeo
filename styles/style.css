@@ -205,6 +205,38 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0px 0px 20px var(--color-sombra);
 }
 
+.productos h2{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.productos article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #444;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px var(--color-sombra);
+    transition: transform 0.3s ease;
+}
+
+.productos article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 20px var(--color-sombra);
+}
+
+.productos p{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 
 
 /* Botones */

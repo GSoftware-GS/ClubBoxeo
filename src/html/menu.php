@@ -24,6 +24,7 @@
                 
                 <li><a href="./servicios.php">Servicios</a></li>
                 <li><a href="./testimonios.php">Testimonios</a></li>
+                <li><a href="./productos.php">Productos</a></li>
                 <li><a href="./noticias.php">Noticias</a></li>
                 <li><a href="./noticiasMundiales.php">Noticias Mundiales</a></li>
                 <li><a href="./citas.php">Citas</a></li>

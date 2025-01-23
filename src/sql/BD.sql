@@ -60,6 +60,13 @@ CREATE TABLE citas (
     FOREIGN KEY (codigo_socio) REFERENCES socios(id_socio) ON DELETE CASCADE,
     FOREIGN KEY (codigo_servicio) REFERENCES servicios(codigo_servicio)
 );
+
+CREATE TABLE productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL
+);
+
 -- Insertar un usuario administrador
 INSERT INTO usuarios (nombre, username, password, rol, email)
 VALUES ('Administrador', 'admin', 'admin', 'admin', 'admin@clubboxeo.com');
@@ -129,3 +136,11 @@ VALUES
 (2, 2, '2024-11-06', '15:00:00'),
 (3, 3, '2024-11-07', '12:30:00'),
 (1, 3, '2024-11-08', '14:00:00');
+
+
+-- Insertar Productos
+INSERT INTO productos (nombre, precio) VALUES ('Proteinas 500G', 10.99);
+INSERT INTO productos (nombre, precio) VALUES ('Cafe Colombiano 250G', 19.99);
+INSERT INTO productos (nombre, precio) VALUES ('Anabolizantes', 60.99);
+INSERT INTO productos (nombre, precio) VALUES ('Suplemento Pre-Workout 500G', 29.99);
+INSERT INTO productos (nombre, precio) VALUES ('Bebida energetica', 4.99);
