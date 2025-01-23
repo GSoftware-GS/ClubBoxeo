@@ -19,6 +19,11 @@
 
             <?php include './src/php/mostrarProductos.php'; ?>
         </section>
+        <?php
+        echo "<div class='buttons'>";
+        echo "<a href='./src/forms/formularioAgregarProducto.php' class='boton'>Agregar Producto</a>";
+        echo "</div>";
+        ?>
 
 
 

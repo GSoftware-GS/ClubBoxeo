@@ -21,12 +21,17 @@
                     echo "<li><a href='./socios.php'>Socios</a></li>";
                 }
                 ?>
-                
+
                 <li><a href="./servicios.php">Servicios</a></li>
                 <li><a href="./testimonios.php">Testimonios</a></li>
                 <li><a href="./productos.php">Productos</a></li>
-                <li><a href="./noticias.php">Noticias</a></li>
-                <li><a href="./noticiasMundiales.php">Noticias Mundiales</a></li>
+                <li class="submenu">
+                    <a href="#">Noticias</a>
+                    <ul>
+                        <li><a href="./noticias.php">Noticias del Gimnasio</a></li>
+                        <li><a href="./noticiasMundiales.php">Noticias Mundiales</a></li>
+                    </ul>
+                </li>
                 <li><a href="./citas.php">Citas</a></li>
                 <?php if (isset($_SESSION['loggedin'])): ?>
                     <li><a class="logout" href="./logout.php">Cerrar Sesion</a></li>

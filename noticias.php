@@ -15,7 +15,7 @@
         <?php include './src/html/menu.php'; ?>
 
         <section class="noticias">
-            <h1>Noticias</h1>
+            <h1>Noticias del Gimnasio</h1>
 
             <?php include './src/php/mostrarNoticias.php'; ?>
         </section>

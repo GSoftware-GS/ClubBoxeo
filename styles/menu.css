@@ -96,6 +96,68 @@
 
 }
 
+/* Submenu styles */
+.menu .submenu ul {
+    display: block;
+    position: absolute;
+    background-color: var(--color-fondo);
+    padding: 0;
+    list-style: none;
+    top: 100%;
+    left: 0;
+    box-shadow: 0px 2px 10px var(--color-sombra);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px); /* Comienza ligeramente desplazado hacia arriba */
+    transition: all 0.3s ease; /* Animación suave */
+}
+
+.menu .submenu:hover ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Se posiciona en su lugar */
+}
+
+.menu .submenu ul li {
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.menu .submenu ul li a {
+    color: var(--color-texto);
+    font-weight: normal;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.menu .submenu ul li a:hover {
+    color: var(--color-primario);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Asegura que el contenedor no afecte la posición del resto del menú */
+.menu .submenu {
+    position: relative;
+}
+
+
+.imagen-producto {
+    width: 100%;
+    max-width: 300px; /* Máximo ancho de la imagen */
+    height: auto;
+    border-radius: 8px; /* Bordes redondeados para un look más suave */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación al pasar el ratón */
+    object-fit: cover; /* Asegura que la imagen se ajuste bien */
+}
+
+.imagen-producto:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Efecto de sombra más prominente */
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .menu {

@@ -71,44 +71,47 @@ $totalPaginas = ceil($totalNoticias / $noticiasPorPagina);
         <?php include './src/html/menu.php'; ?>
 
         <section class="noticias">
-        <?php if (!empty($paginatedNews)): ?>
-            <?php foreach ($paginatedNews as $item): ?>
-                <article>
-                    <h2><?= htmlspecialchars($item['title']) ?></h2>
-                    <?php if (!empty($item['image_url'])): ?>
-                        <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['title']) ?>"
-                            width="100" height="100" class="imagen-noticia">
-                    <?php endif; ?>
-                    <p><?= htmlspecialchars(substr($item['description'] ?? 'Sin descripción disponible.', 0, 100)) ?>...</p>
-                    <?php if (!empty($item['keywords'])): ?>
-                        <p><strong>Palabras clave:</strong> <?= htmlspecialchars(implode(", ", $item['keywords'])) ?></p>
-                    <?php endif; ?>
-                    <p><small>Autor: <?= htmlspecialchars(implode(", ", $item['creator'] ?? ['Desconocido'])) ?></small></p>
-                    <p><small>Fecha: <?= date("d/m/Y", strtotime($item['pubDate'])) ?></small></p>
-                    <a href="<?= htmlspecialchars($item['link']) ?>" class="boton" target="_blank">Leer Más</a>
-                </article>
-            <?php endforeach; ?>
 
-            <div class="paginacion">
-                <?php if ($paginaActual > 1): ?>
-                    <a href="?pagina=<?= $paginaActual - 1 ?>" class="boton">Anterior</a>
-                <?php endif; ?>
+            <h1>Noticias Mundiales</h1>
 
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                    <?php if ($i == $paginaActual): ?>
-                        <strong class="pagina-actual"><?= $i ?></strong>
-                    <?php else: ?>
-                        <a href="?pagina=<?= $i ?>" class="boton"><?= $i ?></a>
+            <?php if (!empty($paginatedNews)): ?>
+                <?php foreach ($paginatedNews as $item): ?>
+                    <article>
+                        <h2><?= htmlspecialchars($item['title']) ?></h2>
+                        <?php if (!empty($item['image_url'])): ?>
+                            <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['title']) ?>"
+                                width="100" height="100" class="imagen-noticia">
+                        <?php endif; ?>
+                        <p><?= htmlspecialchars(substr($item['description'] ?? 'Sin descripción disponible.', 0, 100)) ?>...</p>
+                        <?php if (!empty($item['keywords'])): ?>
+                            <p><strong>Palabras clave:</strong> <?= htmlspecialchars(implode(", ", $item['keywords'])) ?></p>
+                        <?php endif; ?>
+                        <p><small>Autor: <?= htmlspecialchars(implode(", ", $item['creator'] ?? ['Desconocido'])) ?></small></p>
+                        <p><small>Fecha: <?= date("d/m/Y", strtotime($item['pubDate'])) ?></small></p>
+                        <a href="<?= htmlspecialchars($item['link']) ?>" class="boton" target="_blank">Leer Más</a>
+                    </article>
+                <?php endforeach; ?>
+
+                <div class="paginacion">
+                    <?php if ($paginaActual > 1): ?>
+                        <a href="?pagina=<?= $paginaActual - 1 ?>" class="boton">Anterior</a>
                     <?php endif; ?>
-                <?php endfor; ?>
 
-                <?php if ($paginaActual < $totalPaginas): ?>
-                    <a href="?pagina=<?= $paginaActual + 1 ?>" class="boton">Siguiente</a>
-                <?php endif; ?>
-            </div>
-        <?php else: ?>
-            <p>No hay noticias disponibles</p>
-        <?php endif; ?>
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                        <?php if ($i == $paginaActual): ?>
+                            <strong class="pagina-actual"><?= $i ?></strong>
+                        <?php else: ?>
+                            <a href="?pagina=<?= $i ?>" class="boton"><?= $i ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if ($paginaActual < $totalPaginas): ?>
+                        <a href="?pagina=<?= $paginaActual + 1 ?>" class="boton">Siguiente</a>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <p>No hay noticias disponibles</p>
+            <?php endif; ?>
 
         </section>
         <?php include './src/html/footer.html'; ?>

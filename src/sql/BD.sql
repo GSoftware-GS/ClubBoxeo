@@ -9,7 +9,8 @@ CREATE TABLE usuarios (
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     rol ENUM('admin', 'user') DEFAULT 'user',
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    api_key VARCHAR(255)
 );
 
 
@@ -64,16 +65,17 @@ CREATE TABLE citas (
 CREATE TABLE productos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    precio DECIMAL(10, 2) NOT NULL
+    precio DECIMAL(10, 2) NOT NULL,
+    imagen VARCHAR(255) 
 );
 
 -- Insertar un usuario administrador
-INSERT INTO usuarios (nombre, username, password, rol, email)
-VALUES ('Administrador', 'admin', 'admin', 'admin', 'admin@clubboxeo.com');
+INSERT INTO usuarios (nombre, username, password, rol, email, api_key)
+VALUES ('Administrador', 'admin', 'admin', 'admin', 'admin@clubboxeo.com',"t7q7er9ye1F9OT2tKAcb38yewWoluINX");
 
 -- Insertar un usuario user
-INSERT INTO usuarios (nombre, username, password, rol, email)
-VALUES ('User', 'user', 'user', 'user', 'user@clubboxeo.com');
+INSERT INTO usuarios (nombre, username, password, rol, email, api_key)
+VALUES ('User', 'user', 'user', 'user', 'user@clubboxeo.com', "8wBYB7WcihyaB8c6gCR91Z876FUSxqXT");
 
 -- Insertar datos en la tabla socios
 INSERT INTO socios (nombre, edad, contraseña, usuario, telefono, foto)
@@ -139,8 +141,8 @@ VALUES
 
 
 -- Insertar Productos
-INSERT INTO productos (nombre, precio) VALUES ('Proteinas 500G', 10.99);
-INSERT INTO productos (nombre, precio) VALUES ('Cafe Colombiano 250G', 19.99);
-INSERT INTO productos (nombre, precio) VALUES ('Anabolizantes', 60.99);
-INSERT INTO productos (nombre, precio) VALUES ('Suplemento Pre-Workout 500G', 29.99);
-INSERT INTO productos (nombre, precio) VALUES ('Bebida energetica', 4.99);
+INSERT INTO productos (nombre, precio, imagen) VALUES ('Proteinas 500G', 10.99,"1.jpg");
+INSERT INTO productos (nombre, precio, imagen) VALUES ('Cafe Colombiano 250G', 19.99,"2.jpg");
+INSERT INTO productos (nombre, precio, imagen) VALUES ('Anabolizantes', 60.99,"3.jpg");
+INSERT INTO productos (nombre, precio, imagen) VALUES ('Suplemento Pre-Workout 500G', 29.99,"4.jpg");
+INSERT INTO productos (nombre, precio, imagen) VALUES ('Bebida energetica', 4.99,"5.jpg");

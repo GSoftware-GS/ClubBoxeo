@@ -7,6 +7,30 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// Obtener la URL completa de la solicitud
+$requestUri = $_SERVER['REQUEST_URI'];
+
+// Extraer la API Key de la URL (por ejemplo, api.php/t7q7er9ye1F9OT2tKAcb38yewWoluINX)
+$apiKey = extractApiKeyFromUrl($requestUri);
+
+// Verificar si la API Key es válida y obtener el usuario
+$user = isApiKeyValid($apiKey);
+
+// Si la API Key no es válida, responder con un error
+if (!$user) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "API Key inválida o no proporcionada"
+    ]);
+    exit;
+}
+
+// Guardar los datos del usuario para uso posterior
+$userId = $user['id_usuario'];
+$userRole = $user['rol']; // 'admin' o 'user'
+
+// Obtener los parámetros de la query string (ejemplo: ?nombre=cafe)
+$nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
 // Método HTTP
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -84,13 +108,14 @@ switch ($method) {
         // Leer el cuerpo de la solicitud
         $input = json_decode(file_get_contents("php://input"), true);
 
-        if (isset($input['nombre']) && isset($input['precio']) ) {
+        if (isset($input['nombre']) && isset($input['precio']) && isset($input['imagen'])) {
             $nombre = $conexion->real_escape_string($input['nombre']);
             $precio = $conexion->real_escape_string($input['precio']);
+            $imagen = $conexion->real_escape_string($input['imagen']);
 
             // Insertar el producto en la base de datos
-            $consulta = "INSERT INTO productos (nombre, precio) VALUES ('$nombre', '$precio' )";
-            
+            $consulta = "INSERT INTO productos (nombre, precio,imagen) VALUES ('$nombre', '$precio', '$imagen')";
+
             if ($conexion->query($consulta)) {
                 echo json_encode([
                     "status" => "success",
@@ -106,34 +131,171 @@ switch ($method) {
         } else {
             echo json_encode([
                 "status" => "error",
-                "message" => "Faltan datos necesarios (nombre, precio, descripcion)"
+                "message" => "Faltan datos necesarios (nombre, precio, imagen)"
             ]);
         }
         break;
 
     case 'PUT':
-        // Aquí implementarás la actualización de un producto existente en el futuro
-        echo json_encode([
-            "status" => "error",
-            "message" => "Método PUT no implementado aún"
-        ]);
+        // Leer el cuerpo de la solicitud
+        $input = json_decode(file_get_contents("php://input"), true);
+
+        // Verificar que los datos necesarios estén presentes
+        if (isset($input['id']) && (isset($input['nombre']) || isset($input['precio']) || isset($input['imagen']))) {
+            $id = intval($input['id']);
+            $setClauses = [];
+
+            // Construir la consulta dinámica dependiendo de los datos proporcionados
+            if (isset($input['nombre'])) {
+                $nombre = $conexion->real_escape_string($input['nombre']);
+                $setClauses[] = "nombre = '$nombre'";
+            }
+            if (isset($input['precio'])) {
+                $precio = $conexion->real_escape_string($input['precio']);
+                $setClauses[] = "precio = '$precio'";
+            }
+            if (isset($input['descripcion'])) {
+                $imagen = $conexion->real_escape_string($input['imagen']);
+                $setClauses[] = "imagen = '$imagen'";
+            }
+
+            // Unir las cláusulas SET con comas
+            $setClause = implode(", ", $setClauses);
+
+            // Ejecutar la consulta de actualización
+            $consulta = "UPDATE productos SET $setClause WHERE id = $id";
+
+            if ($conexion->query($consulta)) {
+                if ($conexion->affected_rows > 0) {
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "Producto actualizado correctamente"
+                    ]);
+                } else {
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "No se encontró el producto con ID $id o no se realizaron cambios"
+                    ]);
+                }
+            } else {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Error al actualizar el producto: " . $conexion->error
+                ]);
+            }
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Datos incompletos: se necesita al menos 'id' y un campo para actualizar ('nombre', 'precio' o 'descripcion')"
+            ]);
+        }
         break;
 
     case 'DELETE':
-        // Aquí implementarás la eliminación de un producto en el futuro
-        echo json_encode([
-            "status" => "error",
-            "message" => "Método DELETE no implementado aún"
-        ]);
-        break;
+        // Parse input data
+        $input = json_decode(file_get_contents("php://input"), true);
 
-    default:
-        // Respuesta para métodos no soportados
-        echo json_encode([
-            "status" => "error",
-            "message" => "Método no soportado"
-        ]);
-        break;
+        // Validate product ID
+        if (!isset($input['id'])) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "ID de producto no proporcionado"
+            ]);
+            exit;
+        }
+
+        // Sanitize and convert ID to integer
+        $id = intval($input['id']);
+
+        // Prepare delete statement
+        $consulta = "DELETE FROM productos WHERE id = ?";
+        $stmt = $conexion->prepare($consulta);
+
+        if (!$stmt) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Error al preparar la eliminación: " . $conexion->error
+            ]);
+            exit;
+        }
+
+        // Bind and execute
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Producto eliminado correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No se encontró el producto con ID $id"
+                ]);
+            }
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Error al eliminar el producto: " . $stmt->error
+            ]);
+        }
+}
+
+// Función para verificar si la API Key es válida y obtener el usuario correspondiente
+function isApiKeyValid($apiKey)
+{
+    global $conexion;
+
+    // Check for empty or null API key
+    if (empty($apiKey)) {
+        return false;
+    }
+
+    // Prepare and execute the query to find the user with the given API key
+    $consulta = "SELECT id_usuario, rol FROM usuarios WHERE api_key = ?";
+    $stmt = $conexion->prepare($consulta);
+
+    // Check if the statement preparation was successful
+    if (!$stmt) {
+        error_log("Preparation error: " . $conexion->error);
+        return false;
+    }
+
+    // Bind the API key parameter
+    $stmt->bind_param("s", $apiKey);
+
+    // Execute the query
+    if (!$stmt->execute()) {
+        error_log("Execution error: " . $stmt->error);
+        $stmt->close();
+        return false;
+    }
+
+    // Get the result
+    $resultado = $stmt->get_result();
+
+    // Check if a user was found
+    if ($resultado->num_rows > 0) {
+        $userData = $resultado->fetch_assoc();
+        $stmt->close();
+        return $userData; // Return user data (id_usuario and rol)
+    } else {
+        $stmt->close();
+        return false; // API Key not found
+    }
+}
+
+function extractApiKeyFromUrl($requestUri)
+{
+    // Split the URI by '/'
+    $parts = explode('/', $requestUri);
+
+    // The API key is typically the last part of the URL
+    // Remove any query string parameters
+    $apiKey = strtok(end($parts), '?');
+
+    return $apiKey;
 }
 
 // Cerrar la conexión

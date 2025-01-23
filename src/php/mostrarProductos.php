@@ -18,7 +18,7 @@ $totalProductos = $totalProductosResultado->fetch_assoc()['total'];
 $totalPaginas = ceil($totalProductos / $productosPorPagina);
 
 
-$consulta = "SELECT * FROM productos  ORDER BY nombre DESC LIMIT $offset, $productosPorPagina";
+$consulta = "SELECT * FROM productos  ORDER BY nombre ASC LIMIT $offset, $productosPorPagina";
 
 
 $productos = $conexion->query($consulta);
@@ -28,6 +28,7 @@ if ($productos->num_rows > 0) {
         echo "<article>";
         echo "<h2>" . $producto["nombre"] . "</h2>";
         echo "<p>" . $producto["precio"] . " €</p>";
+        echo "<img src='" . "./img/productos/" . $producto["imagen"] . "' alt='" . $producto["nombre"] . "' width='100' height='100' class='imagen-producto'><br>";
         echo "</article>";
     }
 } else {

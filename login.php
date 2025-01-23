@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Preparar y ejecutar la consulta
-    $stmt = $conexion->prepare('SELECT password, rol FROM usuarios WHERE username = ?');
+    $stmt = $conexion->prepare('SELECT password, rol,api_key FROM usuarios WHERE username = ?');
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $stmt->store_result();
@@ -19,7 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Comparar la contraseña
         if ($password === $dbPassword) {
             $_SESSION['loggedin'] = true;
-            $_SESSION['rol'] = $rol; // Guardar el rol en la sesión
+            $_SESSION['rol'] = $rol;
+            $_SESSION['username'] = $username;
+            $_SESSION['api_key'] = $api_key;
+             // Guardar el rol en la sesión
             header('Location: index.php');
             exit;
         } else {
