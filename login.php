@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($dbPassword, $rol);
+        $stmt->bind_result($dbPassword, $rol, $api_key);
         $stmt->fetch();
 
         // Comparar la contraseña

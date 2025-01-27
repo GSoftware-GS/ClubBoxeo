@@ -26,7 +26,7 @@
 
                 <input type="submit" value="Añadir producto">
             </form>
-            <a href='productos.php'>Volver a la lista de productos</a>
+            <a href='../../productos.php'>Volver a la lista de productos</a>
         </div>
     </div>
 
@@ -37,9 +37,10 @@
             const nombre = document.getElementById('nombre').value;
             const precio = document.getElementById('precio').value;
             const imagen = document.getElementById('imagen').value;
-            const apiKey = '
-            <?php include './src/php/session_start.php';
-            $_SESSION["api_key"]; ?>';
+            const apiKey = "<?php
+            include '../php/session_start.php';
+            echo htmlspecialchars($_SESSION['api_key'], ENT_QUOTES, 'UTF-8');
+            ?>";
 
             try {
                 const response = await fetch(`http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/${apiKey}`, {
