@@ -102,7 +102,7 @@ switch ($method) {
 
         } else {
             // Obtener todos los productos
-            $consulta = "SELECT * FROM productos ORDER BY nombre DESC";
+            $consulta = "SELECT * FROM productos ORDER BY nombre ASC";
             $resultado = $conexion->query($consulta);
 
             if ($resultado->num_rows > 0) {
