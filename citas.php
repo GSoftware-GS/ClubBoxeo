@@ -1,4 +1,6 @@
-<?php include './src/php/session_start.php'; ?>
+<?php include './src/includes/auth.php'; 
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">

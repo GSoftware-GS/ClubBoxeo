@@ -24,7 +24,10 @@
 
                 <li><a href="./servicios.php">Servicios</a></li>
                 <li><a href="./testimonios.php">Testimonios</a></li>
-                <li><a href="./productos.php">Productos</a></li>
+                <?php if (isset($_SESSION['loggedin'])): ?>
+                    <li><a href="./productos.php">Productos</a></li>
+                <?php endif; ?>
+
                 <li class="submenu">
                     <a href="#">Noticias</a>
                     <ul>
@@ -32,7 +35,18 @@
                         <li><a href="./noticiasMundiales.php">Noticias Mundiales</a></li>
                     </ul>
                 </li>
-                <li><a href="./citas.php">Citas</a></li>
+                <?php if (isset($_SESSION['loggedin'] )): ?>
+                    <li><a href="./citas.php">Citas</a></li>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['rol'] !== 'admin'): ?>
+                    <li><a href="./ajustes.php">⚙️</a></li>
+                <?php endif; ?>
+
+                <?php if (!isset($_SESSION['loggedin'])): ?>
+                    <li><a class="logout" href="./login.php">Iniciar Sesion</a></li>
+                <?php endif; ?>
+
                 <?php if (isset($_SESSION['loggedin'])): ?>
                     <li><a class="logout" href="./logout.php">Cerrar Sesion</a></li>
                 <?php endif; ?>

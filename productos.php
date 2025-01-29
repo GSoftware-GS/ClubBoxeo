@@ -1,4 +1,6 @@
-<?php include './src/php/session_start.php'; ?>
+<?php include './src/includes/auth.php';
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +22,11 @@
             <?php include './src/php/mostrarProductos.php'; ?>
         </section>
         <?php
-        echo "<div class='buttons'>";
-        echo "<a href='./src/forms/formularioAgregarProducto.php' class='boton'>Agregar Producto</a>";
-        echo "</div>";
+        if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'admin') {
+            echo "<div class='buttons'>";
+            echo "<a href='./src/forms/formularioAgregarProducto.php' class='boton'>Agregar Producto</a>";
+            echo "</div>";
+        }
         ?>
 
 

@@ -1,7 +1,6 @@
-<?php include './src/php/session_start.php';
-
-
+<?php
 // URL de la API
+session_start();
 $apiUrl = "https://newsdata.io/api/1/news";
 $apiKey = "pub_654822d8fd6c998a2b8e17f2ec4a4cd18f042";
 $query = "boxing";

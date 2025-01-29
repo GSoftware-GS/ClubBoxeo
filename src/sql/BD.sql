@@ -71,11 +71,11 @@ CREATE TABLE productos (
 
 -- Insertar un usuario administrador
 INSERT INTO usuarios (nombre, username, password, rol, email, api_key)
-VALUES ('Administrador', 'admin', 'admin', 'admin', 'admin@clubboxeo.com',"t7q7er9ye1F9OT2tKAcb38yewWoluINX");
+VALUES ('Administrador', 'admin', 'admin', '$2y$10$YN16uMd1YnUYTlQB2sng9ui7jegJA6f6yUR88b0yMflJ/lmfnw1vW', 'admin@clubboxeo.com',"t7q7er9ye1F9OT2tKAcb38yewWoluINX");
 
 -- Insertar un usuario user
 INSERT INTO usuarios (nombre, username, password, rol, email, api_key)
-VALUES ('User', 'user', 'user', 'user', 'user@clubboxeo.com', "8wBYB7WcihyaB8c6gCR91Z876FUSxqXT");
+VALUES ('User', 'user', 'user', '$2y$10$7JYyre8/IG.Ij/XduMixlud2cw.kTHZVsy4fjav84IN8gdDm1FI8a', 'user@clubboxeo.com', "8wBYB7WcihyaB8c6gCR91Z876FUSxqXT");
 
 -- Insertar datos en la tabla socios
 INSERT INTO socios (nombre, edad, contraseña, usuario, telefono, foto)

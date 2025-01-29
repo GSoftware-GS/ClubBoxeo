@@ -1,5 +1,5 @@
 <?php
-include './session_start.php';
+include '../includes/auth.php';
 require_once("conexion.php");
 
 $idCita = $_GET['id'];

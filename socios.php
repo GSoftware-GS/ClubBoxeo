@@ -1,4 +1,4 @@
-<?php include './src/php/session_admin.php'; ?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">

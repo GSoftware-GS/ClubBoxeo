@@ -1,11 +1,15 @@
-<?php session_start(); ?>
+<?php session_start();
+if(_(!isset($_SESSION['loggedin']))){
+    header("Location: login.php");
+}
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonios</title>
+    <title>Ajustes</title>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
@@ -18,15 +22,11 @@
 
         <?php include './src/html/menu.php'; ?>
 
-        <section class="testimonios">
-            <h1>Testimonios</h1>
-            <?php include './src/php/mostrarTestimonios.php'; ?>
+        <section class="ajustes">
+            <h1>Ajustes</h1>
+            <?php include './src/php/mostrarInformacionPersonal.php'; ?>
         </section>
-        <?php
-        if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'user') {
-        echo "<a href='./src/forms/formularioTestimonio.php' class='boton'>Agregar testimonio</a>";
-        }
-        ?>
+      
         <!-- Footer en la parte inferior -->
 
         <?php include './src/html/footer.html'; ?>

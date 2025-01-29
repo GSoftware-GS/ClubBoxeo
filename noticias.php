@@ -1,5 +1,4 @@
-<?php include './src/php/session_start.php'; ?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 

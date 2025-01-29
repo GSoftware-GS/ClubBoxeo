@@ -51,6 +51,13 @@ if ($productosData && $productosData["status"] === "success") {
             echo "<h2>" . htmlspecialchars($producto["nombre"]) . "</h2>";
             echo "<p>" . htmlspecialchars($producto["precio"]) . " €</p>";
             echo "<img src='./img/productos/" . htmlspecialchars($producto["imagen"]) . "' alt='" . htmlspecialchars($producto["nombre"]) . "' width='100' height='100' class='imagen-producto'><br>";
+            if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') {
+                echo "<div class='buttons'>";
+                echo "<a href='./src/forms/formualrioModificarProducto.php?id=" . htmlspecialchars($producto["id"]) . "' class='boton'>Modificar</a>";
+                echo "<a href='./src/php/eliminarProducto.php?id=" . htmlspecialchars($producto["id"]) . "' class='boton boton' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este producto?\");'>Eliminar</a>";
+                echo "</div>";
+            }
+
             echo "</article>";
         }
     } else {

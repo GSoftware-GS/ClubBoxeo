@@ -36,6 +36,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
+
         if (isset($_GET['nombre'])) {
             // Buscar productos por subcadena en el nombre
             $nombre = $conexion->real_escape_string($_GET['nombre']);
@@ -80,6 +81,25 @@ switch ($method) {
                     "message" => "No se encontraron productos con un precio menor a $precio"
                 ]);
             }
+        }elseif(isset($_GET['id'])) {
+            // Buscar producto por ID
+            $id = intval($_GET['id']);
+            $consulta = "SELECT * FROM productos WHERE id = $id";
+            $resultado = $conexion->query($consulta);
+
+            if ($resultado->num_rows > 0) {
+                $producto = $resultado->fetch_assoc();
+                echo json_encode([
+                    "status" => "success",
+                    "data" => $producto
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No se encontraron productos con ese ID"
+                ]);
+            }
+
         } else {
             // Obtener todos los productos
             $consulta = "SELECT * FROM productos ORDER BY nombre DESC";
