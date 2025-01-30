@@ -1,7 +1,5 @@
 <?php session_start();
-if(_(!isset($_SESSION['loggedin']))){
-    header("Location: login.php");
-}
+include './src/includes/auth.php';
     ?>
 <!DOCTYPE html>
 <html lang="en">

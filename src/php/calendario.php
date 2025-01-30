@@ -40,9 +40,9 @@ if ($nextMonth > 12) {
     $nextYear = $year + 1;
 }
 
-// Recuperar citas para el mes actual, uniendo con las tablas de servicios y socios para obtener la descripción y otros detalles
 $sql = "
-    SELECT c.id, s2.nombre, c.fecha, c.hora, s.descripcion
+    SELECT c.id, s2.nombre, c.fecha, c.hora, s.descripcion, 
+           COUNT(*) OVER (PARTITION BY DAY(c.fecha)) as citas_por_dia
     FROM citas c
     JOIN servicios s ON c.codigo_servicio = s.codigo_servicio
     JOIN socios s2 ON c.codigo_socio = s2.id_socio
@@ -51,24 +51,26 @@ $result = $conexion->query($sql);
 
 // Organizar citas en un array
 $citas = [];
+$citasPorDia = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $dia = (int)date('j', strtotime($row['fecha'])); // Día de la cita
+        $dia = (int)date('j', strtotime($row['fecha']));
         if (!isset($citas[$dia])) {
             $citas[$dia] = [];
         }
-        // Guardamos la descripción y hora de la cita
         $citas[$dia][] = [
             'id' => $row['id'],
             'hora' => date('H:i', strtotime($row['hora'])),
-            'descripcion' => $row['descripcion']
-            . ' - ' . $row['nombre']
+            'descripcion' => $row['descripcion'],
+            'nombre' => $row['nombre']
         ];
+        $citasPorDia[$dia] = $row['citas_por_dia'];
     }
 }
 
 // Generar el calendario
 echo "<h2>$monthName $year</h2>";
+echo '<div class="calendar-container">';
 echo '<table class="calendar">';
 echo '<tr>';
 foreach ($daysOfWeek as $day) {
@@ -83,25 +85,34 @@ if ($dayOfWeek > 0) {
 
 $day = 1;
 while ($day <= $numberDays) {
-    // Empezar una nueva fila en cada semana
     if (($dayOfWeek + $day) % 7 == 1) {
         echo '<tr>';
     }
 
-    // Marcar el día actual
     $class = ($day == $currentDay && $month == $currentMonth && $year == $currentYear) ? 'current-day' : '';
-    echo "<td class='$class'><div class='day'>$day</div>";
+    echo "<td class='$class'>";
+    echo "<div class='day'>$day</div>";
 
-    // Mostrar citas del día
-    if (isset($citas[$day])) {
+    // Mostrar indicador de citas
+    if (isset($citasPorDia[$day])) {
+        echo "<div class='citas-indicator' onclick='mostrarDetallesCitas($day)'>";
+        echo "<span class='citas-count'>{$citasPorDia[$day]} citas</span>";
+        echo "</div>";
+        
+        // Contenedor oculto para los detalles de las citas
+        echo "<div id='citas-dia-$day' class='citas-detalles' style='display: none;'>";
         foreach ($citas[$day] as $cita) {
-            echo "<a class='cita' href='./src/php/mostrarCita.php?id=" . $cita["id"] . "'>{$cita['hora']} - {$cita['descripcion']}</a><br><br>";
+            echo "<div class='cita-detalle'>";
+            echo "<a href='./src/php/mostrarCita.php?id={$cita['id']}'>";
+            echo "{$cita['hora']} - {$cita['nombre']}";
+            echo "</a>";
+            echo "</div>";
         }
+        echo "</div>";
     }
 
     echo "</td>";
 
-    // Finalizar la fila de la semana
     if (($dayOfWeek + $day) % 7 == 0) {
         echo '</tr>';
     }
@@ -109,32 +120,37 @@ while ($day <= $numberDays) {
     $day++;
 }
 
-// Completar la última semana del mes con celdas vacías
+// Completar la última semana
 if (($dayOfWeek + $numberDays) % 7 != 0) {
     echo str_repeat('<td></td>', 7 - (($dayOfWeek + $numberDays) % 7));
 }
 
-echo '</tr>';
-echo '</table>';
+echo '</tr></table>';
+echo '</div>';
 
 // Botones de navegación
 echo "<div class='nav-buttons'>";
 echo "<a href='?month=$prevMonth&year=$prevYear' class='button'>&lt; Mes Anterior</a> ";
 echo "<a href='?month=$nextMonth&year=$nextYear' class='button'>Mes Siguiente &gt;</a>";
 echo "</div>";
-
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calendario de Citas</title>
     <link rel="stylesheet" href="./styles/calendario.css">
+    <script>
+        function mostrarDetallesCitas(dia) {
+            const detalles = document.getElementById(`citas-dia-${dia}`);
+            if (detalles) {
+                detalles.style.display = detalles.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+    </script>
 </head>
 <body>
-    
 </body>
 </html>

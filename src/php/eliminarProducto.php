@@ -44,9 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                     // Eliminar la imagen si existe
                     $rutaImagen = "../../img/productos/" . $imagen;
                     if (file_exists($rutaImagen)) {
+                        // Eliminar la imagen
                         unlink($rutaImagen);
                     }
-                    
+
                     header("Location: ../../productos.php?success=1&message=Producto eliminado correctamente");
                     exit();
                 } else {

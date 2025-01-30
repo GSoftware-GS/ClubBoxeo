@@ -16,131 +16,228 @@
     --color-boton-hover: #ff4d4d;
 }
 
+/* Contenedor principal */
+body {
+    background-color: var(--color-fondo);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Contenedor del calendario */
+.calendar-container {
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
 /* Calendario */
 .calendar {
     width: 100%;
-    max-width: 450px; /* Reducción del tamaño máximo */
     margin: 0 auto;
     border-collapse: collapse;
-    background-color: #2a2a2a;
-    box-shadow: 0 4px 8px var(--color-sombra);
+    background-color: var(--color-form-fondo);
+    box-shadow: 0 4px 12px var(--color-sombra);
 }
 
 .calendar th {
     background-color: var(--color-primario);
     color: var(--color-texto);
-    padding: 6px; /* Menos padding para celdas de encabezado */
-    font-size: 0.95em; /* Reducción del tamaño de texto */
+    padding: 15px;
+    font-size: 1.3em;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
 }
 
 .calendar td {
     width: 14.28%;
-    padding: 8px; /* Menos padding en las celdas */
+    padding: 15px;
     text-align: center;
     border: 1px solid #444;
     position: relative;
-    font-size: 0.8em; /* Tamaño de fuente más pequeño */
-}
-
-.calendar td:hover {
-    background-color: var(--color-secundario);
-    cursor: pointer;
-}
-
-.current-day {
-    background: radial-gradient(circle, #ffd90079 5%, transparent 50%);
-    font-weight: bold;
-    color: #333;
-    border-radius: 50%;
-}
-
-/* Citas dentro de las celdas */
-.calendar td .cita {
+    font-size: 1.1em;
     color: var(--color-texto);
+    font-family: 'Montserrat', sans-serif;
+    height: 140px;
+    vertical-align: top;
+}
+
+/* Día actual */
+.current-day {
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.2) 60%, transparent 80%);
+    font-weight: bold;
+}
+
+/* Número del día */
+.day {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+}
+
+/* Indicador de citas */
+.citas-indicator {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.citas-indicator:hover {
+    background-color: var(--color-secundario);
+    transform: scale(1.02);
+}
+
+/* Detalles de las citas */
+.citas-detalles {
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.cita-detalle {
+    margin: 6px 0;
+    padding: 8px;
     background-color: rgba(255, 255, 255, 0.1);
     border-left: 3px solid var(--color-primario);
-    padding: 3px; /* Menos padding */
-    margin: 3px 0; /* Márgenes más pequeños */
-    border-radius: 3px;
-    font-size: 1.2em; /* Texto aún más pequeño */
-    word-wrap: break-word;
-    text-align: left;
+    border-radius: 4px;
+}
+
+.cita-detalle a {
     text-decoration: none;
+    color: var(--color-texto);
+    display: block;
+    transition: color 0.3s;
+    font-size: 0.9em;
+    padding: 3px;
+}
+
+.cita-detalle a:hover {
+    color: var(--color-primario);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+/* Título del mes */
+h2 {
+    color: var(--color-texto);
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Botones de navegación */
 .nav-buttons {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    gap: 8px; /* Espacio más pequeño entre botones */
+    justify-content: center;
+    margin-top: 25px;
+    gap: 20px;
 }
 
 .button {
     text-decoration: none;
     color: var(--color-texto);
     background-color: var(--color-primario);
-    padding: 6px 12px; /* Menos padding */
-    border-radius: 5px;
-    margin: 0;
-    transition: background-color 0.3s;
+    padding: 12px 25px;
+    border-radius: 6px;
+    transition: all 0.3s;
     text-align: center;
-    flex: 1;
-    font-size: 0.85em; /* Ajuste del tamaño de texto */
+    font-size: 1.2em;
+    font-family: 'Montserrat', sans-serif;
+    min-width: 200px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .button:hover {
     background-color: var(--color-secundario);
+    transform: scale(1.02);
 }
 
 /* Responsividad */
-@media (max-width: 768px) {
-    .calendar {
-        max-width: 75%;
+@media (max-width: 1200px) {
+    .calendar th {
+        padding: 12px;
+        font-size: 1.2em;
     }
 
-    .calendar th,
     .calendar td {
-        padding: 5px; /* Menos padding para pantallas medianas */
-        font-size: 0.75em; /* Reducción adicional del tamaño del texto */
+        padding: 12px;
+        height: 120px;
+        font-size: 1em;
     }
 
-    .calendar td .cita {
-        font-size: 0.6em; /* Citas aún más pequeñas */
-        padding: 2px;
+    .day {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar th {
+        padding: 10px;
+        font-size: 1.1em;
     }
 
-    .nav-buttons .button {
-        padding: 5px 10px; /* Menos padding para pantallas más pequeñas */
-        font-size: 0.75em; /* Ajuste en el tamaño de los botones */
+    .calendar td {
+        padding: 8px;
+        height: 100px;
+        font-size: 0.9em;
+    }
+
+    .day {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .button {
+        padding: 10px 20px;
+        font-size: 1em;
+        min-width: 160px;
     }
 }
 
 @media (max-width: 480px) {
-    .calendar {
-        max-width: 75%;
+    .calendar th {
+        padding: 8px;
+        font-size: 0.9em;
     }
 
-    .calendar th,
     .calendar td {
-        padding: 4px; /* Menos padding en celdas */
-        font-size: 0.65em; /* Texto más pequeño */
+        padding: 5px;
+        height: 80px;
+        font-size: 0.8em;
     }
 
-    .calendar td .cita {
-        font-size: 0.55em; /* Citas más pequeñas */
-        padding: 1px;
+    .day {
+        font-size: 1.1em;
+    }
+
+    h2 {
+        font-size: 1.5em;
     }
 
     .nav-buttons {
         flex-direction: column;
-        gap: 5px;
+        gap: 15px;
     }
 
-    .nav-buttons .button {
-        padding: 7px;
-        font-size: 0.7em; /* Botones más pequeños */
+    .button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        width: 100%;
     }
-
-
 }
