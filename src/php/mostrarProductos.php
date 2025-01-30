@@ -1,90 +1,152 @@
 <?php
 require_once("conexion.php");
 
-// Número de productos por página
+// Configuración de paginación
 $productosPorPagina = 4;
-
-// Página actual, si no se especifica será la primera (1)
 $paginaActual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
-$offset = ($paginaActual - 1) * $productosPorPagina;
+$offset = max(0, ($paginaActual - 1) * $productosPorPagina);
 
-// Parámetros de búsqueda
+// Procesamiento de filtros
 $nombreFiltro = isset($_GET['nombre']) ? htmlspecialchars($_GET['nombre'], ENT_QUOTES, 'UTF-8') : '';
-$precioFiltro = isset($_GET['precio']) ? (float) $_GET['precio'] : '';
+$precioFiltro = isset($_GET['precio']) ? (float) $_GET['precio'] : 0;
 
-// Construcción de la URL de la API con los filtros
-$apiKey = htmlspecialchars($_SESSION['api_key'], ENT_QUOTES, 'UTF-8');
-$apiUrl = "http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/" . $apiKey;
-if (!empty($nombreFiltro)) {
-    $apiUrl .= "?nombre=" . urlencode($nombreFiltro);
-} elseif (!empty($precioFiltro)) {
-    $apiUrl .= "?precio=" . urlencode($precioFiltro);
+// Construcción de URL de la API
+$params = [];
+if (!empty($nombreFiltro))
+    $params['nombre'] = $nombreFiltro;
+if (!empty($precioFiltro))
+    $params['precio'] = $precioFiltro;
+
+$apiUrl = "http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/" .
+    urlencode($_SESSION['api_key'] ?? '') .
+    (!empty($params) ? '?' . http_build_query($params) : '');
+
+// Obtención de datos de la API
+$apiResponse = @file_get_contents($apiUrl);
+if ($apiResponse === false) {
+    $errorAPI = "Error al conectar con el servidor de productos";
 }
+$productosData = $apiResponse ? json_decode($apiResponse, true) : null;
+?>
 
-// Obtener los productos desde la API
-$apiResponse = file_get_contents($apiUrl);
-$productosData = json_decode($apiResponse, true);
+<!DOCTYPE html>
+<html lang="es">
 
-// Formulario de búsqueda (siempre visible)
-echo "<form method='GET' action=''>
-    <label for='nombre'>Buscar por nombre:</label>
-    <input type='text' name='nombre' id='nombre' value='" . htmlspecialchars($nombreFiltro) . "'>
-    <label for='precio'>Buscar por precio menor a:</label>
-    <input type='number' step='0.01' name='precio' id='precio' value='" . htmlspecialchars($precioFiltro) . "'>
-    <button type='submit'>Buscar</button>
-</form>";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Club Boxeo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="./src/js/carrito.js" defer></script>
+</head>
 
-if ($productosData && $productosData["status"] === "success") {
-    $productos = $productosData["data"];
+<body>
+    <!-- Carrito -->
+    <div class="cart-overlay">
+        <aside class="cart">
+            <button class="cart-close"><i class="fas fa-times"></i></button>
+            <header>
+                <h3 class="text-slanted">Carrito de compras</h3>
+                <button class="cart-vaciar btn">Vaciar carrito</button>
+            </header>
+            <div class="cart-items"></div>
+            <footer>
+                <button class="cart-checkout btn">Finalizar compra</button>
+            </footer>
+        </aside>
+    </div>
 
-    // Calcular total de productos y páginas
-    $totalProductos = count($productos);
-    $totalPaginas = ceil($totalProductos / $productosPorPagina);
+    <!-- Contenido principal -->
+    <section class="products">
+        <div class="filters">
+            <div class="toggle-container">
+                <button class="toggle-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-item-count">0</span>
+                </button>
+            </div>
 
-    // Seleccionar los productos para la página actual
-    $productosPagina = array_slice($productos, $offset, $productosPorPagina);
+            <form method='GET' class="search-form">
+                <input type='text' name='nombre' placeholder='Buscar por nombre...' value='<?= $nombreFiltro ?>'>
+                <input type='number' step='0.01' name='precio' placeholder='Precio máximo...'
+                    value='<?= $precioFiltro ?>'>
+                <button type='submit' class="boton"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
 
-    // Mostrar productos
-    if (!empty($productosPagina)) {
-        foreach ($productosPagina as $producto) {
-            echo "<article>";
-            echo "<h2>" . htmlspecialchars($producto["nombre"]) . "</h2>";
-            echo "<p>" . htmlspecialchars($producto["precio"]) . " €</p>";
-            echo "<img src='./img/productos/" . htmlspecialchars($producto["imagen"]) . "' alt='" . htmlspecialchars($producto["nombre"]) . "' width='100' height='100' class='imagen-producto'><br>";
-            if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') {
-                echo "<div class='buttons'>";
-                echo "<a href='./src/forms/formualrioModificarProducto.php?id=" . htmlspecialchars($producto["id"]) . "' class='boton'>Modificar</a>";
-                echo "<a href='./src/php/eliminarProducto.php?id=" . htmlspecialchars($producto["id"]) . "' class='boton boton' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este producto?\");'>Eliminar</a>";
-                echo "</div>";
-            }
+        <!-- Mensajes y alertas -->
+        <div class="alerta"></div>
 
-            echo "</article>";
-        }
-    } else {
-        echo "<p>No hay productos disponibles en esta página</p>";
-    }
+        <!-- Listado de productos -->
+        <div class="products-container">
+            <?php if (isset($errorAPI)): ?>
+                <p class="error"><?= $errorAPI ?></p>
+            <?php elseif ($productosData && $productosData["status"] === "success"): ?>
+                <?php
+                $productos = $productosData["data"];
+                $totalProductos = count($productos);
+                $productosPagina = array_slice($productos, $offset, $productosPorPagina);
+                $totalPaginas = ceil($totalProductos / $productosPorPagina);
+                ?>
 
-    // Mostrar botones de paginación
-    echo "<div class='paginacion'>";
-    if ($paginaActual > 1) {
-        echo "<a href='?pagina=" . ($paginaActual - 1) . "&nombre=$nombreFiltro&precio=$precioFiltro' class='boton'>Anterior</a> ";
-    }
+                <?php foreach ($productosPagina as $producto): ?>
+                    <article class="product">
+                        <div class="product-container" data-id="<?= $producto['id'] ?>">
+                            <img src="./img/productos/<?= $producto['imagen'] ?>"
+                                alt="<?= htmlspecialchars($producto['nombre']) ?>" class="product-img">
+                            <div class="product-icons">
+                                <button class="product-cart-btn">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <footer>
+                            <h3 class="product-name"><?= htmlspecialchars($producto['nombre']) ?></h3>
+                            <p class="product-price"><?= number_format($producto['precio'], 2) ?> €</p>
+                            <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
+                                <div class="admin-buttons">
+                                    <a href="./src/forms/formualrioModificarProducto.php?id=<?= $producto['id'] ?>"
+                                        class="btn">Editar</a>
+                                    <a href="./src/php/eliminarProducto.php?id=<?= $producto['id'] ?>" class="btn btn-danger"
+                                        onclick="return confirm('¿Eliminar este producto?')">Eliminar</a>
+                                </div>
+                            <?php endif; ?>
+                        </footer>
+                    </article>
+                <?php endforeach; ?>
 
-    for ($i = 1; $i <= $totalPaginas; $i++) {
-        if ($i == $paginaActual) {
-            echo "<strong style='color: red;'>$i</strong> ";
-        } else {
-            echo "<a href='?pagina=$i&nombre=$nombreFiltro&precio=$precioFiltro' style='color: white; text-decoration: none;'>$i</a> ";
-        }
-    }
 
-    if ($paginaActual < $totalPaginas) {
-        echo "<a href='?pagina=" . ($paginaActual + 1) . "&nombre=$nombreFiltro&precio=$precioFiltro' class='boton'>Siguiente</a>";
-    }
-    echo "</div>";
-} else {
-    echo "<p>No se pudo obtener la lista de productos</p>";
+            </div>
+            <!-- Paginación -->
+            <?php if ($totalPaginas > 1): ?>
+                <div class="paginacion">
+                    <?php if ($paginaActual > 1): ?>
+                        <a href="?<?= http_build_query(array_merge($_GET, ['pagina' => $paginaActual - 1])) ?>"
+                            class="btn">Anterior</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                        <a href="?<?= http_build_query(array_merge($_GET, ['pagina' => $i])) ?>"
+                            class="btn <?= $i === $paginaActual ? 'active' : '' ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+
+                    <?php if ($paginaActual < $totalPaginas): ?>
+                        <a href="?<?= http_build_query(array_merge($_GET, ['pagina' => $paginaActual + 1])) ?>"
+                            class="btn">Siguiente</a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <p class="info">No se encontraron productos</p>
+        <?php endif; ?>
+    </section>
+
+
+</body>
+
+</html>
+<?php
+if (isset($conexion) && $conexion instanceof mysqli) {
+    $conexion->close();
 }
-
-$conexion->close();
 ?>
