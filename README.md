@@ -2,7 +2,6 @@
   <img src="img/assets/logo.png" alt="Logo" width="200">
 </p>
 
-
 # Gym Management System
 
 Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de un gimnasio, permitiendo la gestión de usuarios con roles de administrador y usuario estándar.
@@ -15,31 +14,49 @@ Este proyecto es una aplicación PHP diseñada para gestionar las operaciones de
   - **User**: Puede acceder a los servicios y reservar citas.
 - **Gestión de Socios**: Los administradores pueden gestionar y visualizar los detalles de los socios.
 - **Gestión de Citas**: Los usuarios pueden programar y administrar citas.
-- **Visualización de Servicios, Noticias y Testimonios**: Información disponible tanto para usuarios como para visitantes.
+- **Gestión de Productos y Servicios**: Administración de productos disponibles en el gimnasio.
+- **Noticias y Testimonios**: Sección para mostrar las últimas noticias y testimonios de clientes.
 
 ## Demo
 
 Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo](https://gsanchezcalvente.000.pe/)
 
 **Credenciales de la demo**:
-- **Usuario estándar**: 
-  - **Usuario**: `user`
+- **Usuario Socio**: 
+  - **Usuario**: `carlos`
   - **Contraseña**: `user`
 - **Administrador**: 
   - **Usuario**: `admin`
   - **Contraseña**: `admin`
 
+## Estructura del Proyecto
 
-## Archivos Principales
+```
+└── gsoftware-gs-clubboxeo/
+    ├── README.md
+    ├── index.php
+    ├── login.php
+    ├── logout.php
+    ├── citas.php
+    ├── socios.php
+    ├── productos.php
+    ├── servicios.php
+    ├── noticias.php
+    ├── testimonios.php
+    ├── ajustes.php
+    ├── api.php
+    ├── noAccess.php
+    ├── noticiasMundiales.php
+    ├── src/
+    │   ├── forms/
+    │   ├── html/
+    │   ├── includes/
+    │   ├── js/
+    │   ├── php/
+    │   ├── sql/
+    ├── styles/
+```
 
-- **index.php**: Página de inicio que muestra información general sobre el gimnasio.
-- **citas.php**: Sección para gestionar y programar citas.
-- **noticias.php**: Sección para ver las últimas noticias y actualizaciones.
-- **testimonios.php**: Sección para ver los testimonios de clientes.
-- **servicios.php**: Sección para ver los servicios disponibles.
-- **login.php**: Página de inicio de sesión.
-- **socios.php**: Sección para gestionar los socios.
-   
 ## Instalación y Configuración
 
 1. **Requisitos**:
@@ -49,8 +66,8 @@ Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo
 
 2. **Configuración**:
    - Clona este repositorio en tu servidor local o de producción.
-   - Configura la conexión a la base de datos en el archivo `config.php`.
-   - Importa el esquema de la base de datos desde el archivo `database.sql` (si se proporciona).
+   - Configura la conexión a la base de datos en `src/php/conexion.php`.
+   - Importa el esquema de la base de datos desde `src/sql/club.sql`.
 
 3. **Iniciar la Aplicación**:
    - Asegúrate de que tu servidor web esté ejecutándose.
@@ -59,19 +76,22 @@ Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo
 ## Uso
 
 - **Navegación**: El menú de navegación incluye enlaces a las secciones principales como Home, Servicios, Testimonios, Noticias y Citas.
-- **Acceso de Administrador**: Si el usuario es un administrador, tendrá acceso a funcionalidades adicionales, como la gestión de socios.
+- **Acceso de Administrador**: Si el usuario es un administrador, tendrá acceso a funcionalidades adicionales, como la gestión de socios y productos.
 - **Cerrar Sesión**: Los usuarios pueden cerrar sesión de manera segura usando el enlace de cierre de sesión.
-
 
 ## Capturas de Pantalla
 
-![alt text](img/assets/github(2).png)
+<p align="center">
+  <img src="img/assets/github(2).png" alt="Captura 1">
+</p>
 
-![alt text](img/assets/github.png)
+<p align="center">
+  <img src="img/assets/github.png" alt="Captura 2">
+</p>
 
 ## Créditos
 
-- Desarrollado por: _Gonzalo Sanchez Calvente_
+- Desarrollado por: _Gonzalo Sánchez Calvente_
 
 ## Licencia
 
