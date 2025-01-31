@@ -32,29 +32,100 @@ Puedes ver una demo en vivo de la aplicación aquí: [Gym Management System Demo
 ## Estructura del Proyecto
 
 ```
+Directory structure:
 └── gsoftware-gs-clubboxeo/
     ├── README.md
+    ├── ajustes.php
+    ├── api.php
+    ├── citas.php
     ├── index.php
     ├── login.php
     ├── logout.php
-    ├── citas.php
-    ├── socios.php
+    ├── noAccess.php
+    ├── noticias.php
+    ├── noticiasMundiales.php
     ├── productos.php
     ├── servicios.php
-    ├── noticias.php
+    ├── socios.php
     ├── testimonios.php
-    ├── ajustes.php
-    ├── api.php
-    ├── noAccess.php
-    ├── noticiasMundiales.php
+    ├── img/
+    │   ├── assets/
+    │   ├── noticias/
+    │   ├── productos/
+    │   └── usuarios/
     ├── src/
     │   ├── forms/
+    │   │   ├── formualrioModificarProducto.php
+    │   │   ├── formularioAgregarProducto.php
+    │   │   ├── formularioBuscarCita.php
+    │   │   ├── formularioBuscarServicio.php
+    │   │   ├── formularioBuscarSocio.php
+    │   │   ├── formularioCita.php
+    │   │   ├── formularioContacto.php
+    │   │   ├── formularioModificarCita.php
+    │   │   ├── formularioModificarServicio.php
+    │   │   ├── formularioModificarSocio.php
+    │   │   ├── formularioNoticia.php
+    │   │   ├── formularioServicio.php
+    │   │   ├── formularioSocio.php
+    │   │   └── formularioTestimonio.php
     │   ├── html/
+    │   │   ├── footer.html
+    │   │   └── menu.php
     │   ├── includes/
+    │   │   ├── auth.php
+    │   │   └── logout.php
     │   ├── js/
+    │   │   ├── carrito.js
+    │   │   ├── validarBuscarCita.js
+    │   │   ├── validarBuscarServicio.js
+    │   │   ├── validarBuscarSocio.js
+    │   │   ├── validarCita.js
+    │   │   ├── validarModificarCita.js
+    │   │   ├── validarModificarSocio.js
+    │   │   ├── validarNoticia.js
+    │   │   ├── validarServicio.js
+    │   │   ├── validarSocio.js
+    │   │   └── validarTestimonio.js
     │   ├── php/
-    │   ├── sql/
-    ├── styles/
+    │   │   ├── agregarCita.php
+    │   │   ├── agregarNoticia.php
+    │   │   ├── agregarProducto.php
+    │   │   ├── agregarServicio.php
+    │   │   ├── agregarSocio.php
+    │   │   ├── agregarTestimonio.php
+    │   │   ├── buscarCita.php
+    │   │   ├── buscarServicio.php
+    │   │   ├── buscarSocio.php
+    │   │   ├── calendario.php
+    │   │   ├── conexion.php
+    │   │   ├── eliminarCita.php
+    │   │   ├── eliminarProducto.php
+    │   │   ├── eliminarSocio.php
+    │   │   ├── modificarCita.php
+    │   │   ├── modificarProducto.php
+    │   │   ├── modificarServicio.php
+    │   │   ├── modificarSocio.php
+    │   │   ├── mostrarCita.php
+    │   │   ├── mostrarInformacionPersonal.php
+    │   │   ├── mostrarNoticia.php
+    │   │   ├── mostrarNoticias.php
+    │   │   ├── mostrarProductos.php
+    │   │   ├── mostrarServicios.php
+    │   │   ├── mostrarSocios.php
+    │   │   ├── mostrarTestimonios.php
+    │   │   └── ultimasNoticias.php
+    │   └── sql/
+    │       ├── BD.sql
+    │       └── club.sql
+    └── styles/
+        ├── calendario.css
+        ├── footer.css
+        ├── formulario.css
+        ├── menu.css
+        ├── productos.css
+        └── style.css
+
 ```
 
 ## Instalación y Configuración
