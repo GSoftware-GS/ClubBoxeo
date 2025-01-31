@@ -3,10 +3,10 @@ require_once("conexion.php");
 
 
 
- $usuarioSesion = $_SESSION["username"];
+ $usuarioSesion = $_SESSION["id_usuario"];
 
 
-    $consulta = "SELECT nombre, username, rol, email, api_key FROM usuarios WHERE nombre = '$usuarioSesion'";
+    $consulta = "SELECT nombre, username, rol, email, api_key FROM usuarios WHERE id_usuario = '$usuarioSesion'";
     $resultado = $conexion->query($consulta);
     $usuario = $resultado->fetch_assoc();
 

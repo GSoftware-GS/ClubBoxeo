@@ -74,28 +74,21 @@ function validarPassword() {
     }
 }
 
-// Función para validar el teléfono
-function validarTelefono() {
-    const telefonoInput = document.querySelector("input[name='telefono']");
-    const telefonoError = document.querySelector("#errorTelefono");
-
-    if (/^\+34\d{9}$/.test(telefonoInput.value.trim())) {
-        mostrarExito(telefonoError);
-    } else {
-        mostrarError(telefonoError, "El teléfono debe estar en formato español (+34 seguido de 9 dígitos).");
-    }
-}
-
 // Función para validar la foto
 function validarFoto() {
     const fotoInput = document.querySelector("input[name='foto']");
     const fotoError = document.querySelector("#errorFoto");
 
     const foto = fotoInput.files[0];
-    if (foto && foto.type === "image/jpeg" && foto.size <= 5 * 1024 * 1024) { // 5MB
-        mostrarExito(fotoError);
+    if (foto) {
+        const tiposPermitidos = ["image/jpeg", "image/png", "image/gif"];
+        if (tiposPermitidos.includes(foto.type) && foto.size <= 5 * 1024 * 1024) { // 5MB
+            mostrarExito(fotoError);
+        } else {
+            mostrarError(fotoError, "La foto debe ser JPEG, PNG o GIF y no superar los 5 MB.");
+        }
     } else {
-        mostrarError(fotoError, "La foto debe ser formato JPEG y no superar los 5 MB.");
+        mostrarExito(fotoError); // Si no se sube una foto, se considera válido
     }
 }
 
@@ -105,7 +98,6 @@ document.querySelector("input[name='usuario']").addEventListener("input", valida
 document.querySelector("input[name='edad']").addEventListener("input", validarEdad);
 document.querySelector("input[name='email']").addEventListener("input", validarEmail);
 document.querySelector("input[name='password']").addEventListener("input", validarPassword);
-document.querySelector("input[name='telefono']").addEventListener("input", validarTelefono);
 document.querySelector("input[name='foto']").addEventListener("change", validarFoto);
 
 // Función para prevenir el envío si hay errores
@@ -116,7 +108,6 @@ form.addEventListener("submit", function (event) {
     validarEdad();
     validarEmail();
     validarPassword();
-    validarTelefono();
     validarFoto();
 
     // Verificar si hay errores antes de enviar

@@ -19,9 +19,9 @@
                 <input type="text" name="nombre" ><br>
                 <span class="result" id="errorNombre"></span>
 
-                <label>Teléfono:</label>
-                <input type="tel" name="telefono" ><br>
-                <span class="result" id="errorTelefono"></span>
+                <label>Email:</label>
+                <input type="email" name="email" ><br>
+                <span class="result" id="errorEmail"></span>
 
                 <input type="submit" value="Buscar socio">
             </form>

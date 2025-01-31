@@ -7,7 +7,7 @@
         $id_socio = $_GET['id'];
 
         // Consultar los datos del socio por su ID
-        $consulta = "DELETE FROM socios WHERE id_socio = ?";
+        $consulta = "DELETE FROM usuarios WHERE id_usuario = ?";
         $stmt = $conexion->prepare($consulta);
         $stmt->bind_param("i", $id_socio);
         $stmt->execute();

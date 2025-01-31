@@ -17,7 +17,7 @@
 
 
     // Consulta para obtener los socios
-    $sqlSocios = "SELECT id_socio, nombre FROM socios";
+    $sqlSocios = "SELECT id_usuario, nombre FROM usuarios WHERE rol = 'socio'";
     $socios = $conexion->query($sqlSocios);
 
     // Consulta para obtener los servicios
@@ -30,7 +30,7 @@
         <select name="socio" >
             <option value="" selected>Seleccionar socio</option>
             <?php foreach ($socios as $socio): ?>
-                <option value="<?php echo $socio['id_socio']; ?>"><?php echo $socio['nombre']; ?></option>
+                <option value="<?php echo $socio['id_usuario']; ?>"><?php echo $socio['nombre']; ?></option>
             <?php endforeach; ?>
         </select>
         <span id="errorSocio" class="error"></span><br>

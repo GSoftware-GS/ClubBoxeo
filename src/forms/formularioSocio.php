@@ -26,9 +26,13 @@
                 <input type="text" name="usuario" ><br>
                 <span class="result" id="errorUsuario"></span>
 
-                <label>Teléfono:</label>
-                <input type="tel" name="telefono" ><br>
-                <span class="result" id="errorTelefono"></span>
+                <label>email:</label>
+                <input type="text" name="email" ><br>
+                <span class="result" id="errorEmail"></span>
+
+                <label>Contraseña:</label>
+                <input type="password" name="password" ><br>
+                <span class="result" id="errorPassword"></span>
 
                 <label>Foto:</label>
                 <input type="file" name="foto" accept="image/*" ><br>

@@ -5,7 +5,7 @@ require_once("../php/conexion.php");
 
 
 // Consulta para obtener los socios
-$sqlSocios = "SELECT id_socio, nombre FROM socios";
+$sqlSocios = "SELECT id_usuario, nombre FROM usuarios WHERE rol = 'socio'";
 $socios = $conexion->query($sqlSocios);
 
 // Consulta para obtener los servicios
@@ -26,29 +26,12 @@ $servicios = $conexion->query($sqlServicios);
 <body>
     <div class="box">
         <div class="form-container">
-            <?php
-            include '../php/agregarTestimonio.php';
-
-
-
-            // Consulta para obtener los socios
-            $sqlSocios = "SELECT id_socio, nombre FROM socios";
-            $socios = $conexion->query($sqlSocios);
-
-            // Consulta para obtener los servicios
-            $sqlServicios = "SELECT codigo_servicio, descripcion FROM servicios";
-            $servicios = $conexion->query($sqlServicios);
-
-            ?>
+        <?php include '../php/agregarTestimonio.php'; ?>
             <h1>Añadir nuevo testimonio</h1>
             <form method="POST" action="" enctype="multipart/form-data">
                 <label for="socio">Socio:</label>
-                <select name="socio" required>
-                <option value="" selected>Elige un socio</option>
-                    <?php foreach ($socios as $socio): ?>
-                        <option value="<?php echo $socio['id_socio']; ?>"><?php echo $socio['nombre']; ?></option>
-                    <?php endforeach; ?>
-                </select><br>
+
+                <input type="hidden" name="socio" value="<?php echo $_SESSION['id_usuario']; ?>"><?php echo $_SESSION['username']; ?></input> <br>
                 <span id="errorSocio" class="error"></span><br>
 
                 <label>contenido:</label>

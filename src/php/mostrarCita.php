@@ -5,10 +5,10 @@ require_once("conexion.php");
 $idCita = $_GET['id'];
 
 // Consulta para obtener la cita
-$consulta = "SELECT s2.id_socio, s2.nombre, c.fecha, c.hora, s.descripcion
+$consulta = "SELECT u.id_usuario, u.nombre, c.fecha, c.hora, s.descripcion
     FROM citas c
     JOIN servicios s ON c.codigo_servicio = s.codigo_servicio
-    JOIN socios s2 ON c.codigo_socio = s2.id_socio
+    JOIN usuarios u ON c.codigo_socio = u.id_usuario AND u.rol = 'socio'
     WHERE c.id = '$idCita'";
 $resultado = $conexion->query($consulta);
 $cita = $resultado->fetch_assoc();

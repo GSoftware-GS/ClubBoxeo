@@ -1,5 +1,6 @@
 <?php
 require_once("conexion.php");
+session_start();
 
 // Procesar el formulario de adición de una nueva noticia
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

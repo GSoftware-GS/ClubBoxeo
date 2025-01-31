@@ -2,7 +2,7 @@
 require_once("conexion.php");
 
 
-$consulta = "SELECT testimonios.id_testimonio, socios.nombre AS autor_nombre, socios.foto AS foto, testimonios.contenido, testimonios.fecha FROM testimonios JOIN socios ON testimonios.autor = socios.id_socio ORDER BY testimonios.fecha DESC;
+$consulta = "SELECT testimonios.id_testimonio, usuarios.nombre AS autor_nombre, usuarios.foto AS foto, testimonios.contenido, testimonios.fecha FROM testimonios JOIN usuarios ON testimonios.autor = usuarios.id_usuario ORDER BY testimonios.fecha DESC;
 ";
 
 $testimonios = $conexion->query($consulta);

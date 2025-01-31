@@ -6,17 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password']; // Mantener como texto plano
 
-    $stmt = $conexion->prepare('SELECT password, rol, api_key FROM usuarios WHERE username = ?');
+    $stmt = $conexion->prepare('SELECT id_usuario, password, rol, api_key FROM usuarios WHERE username = ?');
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($dbPassword, $rol, $api_key);
+        $stmt->bind_result($id_usuario, $dbPassword, $rol, $api_key);
         $stmt->fetch();
 
         // Verificar contraseña CORRECTAMENTE
         if (password_verify($password, $dbPassword)) {
+            $_SESSION['id_usuario'] = $id_usuario;
             $_SESSION['loggedin'] = true;
             $_SESSION['rol'] = $rol;
             $_SESSION['username'] = $username;

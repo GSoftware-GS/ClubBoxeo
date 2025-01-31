@@ -41,11 +41,11 @@ if ($nextMonth > 12) {
 }
 
 $sql = "
-    SELECT c.id, s2.nombre, c.fecha, c.hora, s.descripcion, 
+    SELECT c.id, u.nombre, c.fecha, c.hora, s.descripcion, 
            COUNT(*) OVER (PARTITION BY DAY(c.fecha)) as citas_por_dia
     FROM citas c
     JOIN servicios s ON c.codigo_servicio = s.codigo_servicio
-    JOIN socios s2 ON c.codigo_socio = s2.id_socio
+    JOIN usuarios u ON c.codigo_socio = u.id_usuario AND u.rol = 'socio'
     WHERE MONTH(c.fecha) = $month AND YEAR(c.fecha) = $year";
 $result = $conexion->query($sql);
 

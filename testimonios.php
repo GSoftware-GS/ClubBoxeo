@@ -23,7 +23,7 @@
             <?php include './src/php/mostrarTestimonios.php'; ?>
         </section>
         <?php
-        if (isset($_SESSION['loggedin']) && $_SESSION['rol'] === 'user') {
+        if (isset($_SESSION['loggedin']) && $_SESSION['rol'] !== 'admin') {
         echo "<a href='./src/forms/formularioTestimonio.php' class='boton'>Agregar testimonio</a>";
         }
         ?>
