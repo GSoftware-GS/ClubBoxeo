@@ -17,7 +17,7 @@ if (!empty($nombreFiltro))
 if (!empty($precioFiltro))
     $params['precio'] = $precioFiltro;
 
-$apiUrl = "http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/" .
+$apiUrl = "http://localhost/ClubBoxeo/api.php/" .
     urlencode($_SESSION['api_key'] ?? '') .
     (!empty($params) ? '?' . http_build_query($params) : '');
 

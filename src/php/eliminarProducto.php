@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             $imagen = $producto['imagen'];
 
             // Configurar la solicitud DELETE a la API
-            $ch = curl_init("http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/$apiKey");
+            $ch = curl_init("http://localhost/ClubBoxeo/api.php/$apiKey");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['id' => $id]));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

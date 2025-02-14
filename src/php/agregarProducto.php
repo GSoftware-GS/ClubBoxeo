@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 );
                 
                 // Configurar la solicitud a la API
-                $ch = curl_init("http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/$apiKey");
+                $ch = curl_init("http://localhost/ClubBoxeo/api.php/$apiKey");
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
