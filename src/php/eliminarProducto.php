@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $apiKey = $_SESSION['api_key'];
 
     // Primero obtenemos la información del producto para saber qué imagen eliminar
-    $apiUrl = "http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/" . $apiKey;
+    $apiUrl = "http://localhost/ClubBoxeo/api.php/" . $apiKey;
     $response = file_get_contents($apiUrl);
     $productosData = json_decode($response, true);
 

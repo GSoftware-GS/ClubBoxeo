@@ -14,7 +14,7 @@
     if ($id > 0) {
         $apiKey = $_SESSION['api_key'];
         // Construir la URL de la API correctamente
-        $apiUrl = "http://localhost/Ejercicios%20Servidor/ClubBoxeo/api.php/" . $apiKey;
+        $apiUrl = "http://localhost/ClubBoxeo/api.php/" . $apiKey;
         
         // Obtener todos los productos
         $response = file_get_contents($apiUrl);

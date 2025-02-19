@@ -3,7 +3,7 @@ require_once("conexion.php");
 
 // Procesar el formulario de adición de un nuevo socio
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $socio = $_POST['socio'];
+    $usuario = $_POST['socio'];
     $servicio = $_POST['servicio'];
     $fecha = $_POST['fecha'];
 
@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $types = '';
 
     // Condicional para agregar parámetros según estén vacíos o no
-    if (!empty($socio)) {
-        $conditions[] = "socios.id_socio = ?";
-        $params[] = $socio;
+    if (!empty($usuario)) {
+        $conditions[] = "usuarios.id_usuario = ?";
+        $params[] = $usuario;
         $types .= 'i';  // 'i' para entero
     }
     if (!empty($servicio)) {
@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Construimos la consulta con las condiciones no vacías
     // Usamos 'AND' en lugar de 'OR' para asegurarnos de que todas las condiciones deben cumplirse
-    $sql = "SELECT citas.fecha, citas.hora, socios.nombre AS nombre_socio, servicios.descripcion AS descripcion_servicio
+    $sql = "SELECT citas.fecha, citas.hora, usuarios.nombre AS nombre_usuario, servicios.descripcion AS descripcion_servicio
             FROM citas
-            JOIN socios ON citas.codigo_socio = socios.id_socio
+            JOIN usuarios ON citas.codigo_socio = usuarios.id_usuario
             JOIN servicios ON citas.codigo_servicio = servicios.codigo_servicio
             WHERE " . implode(" AND ", $conditions);
 
