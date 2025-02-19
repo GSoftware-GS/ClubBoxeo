@@ -1,4 +1,4 @@
-<?php include './src/includes/auth.php'; 
+<?php include './src/includes/auth.php';
 
 ?>
 
@@ -34,9 +34,12 @@
         ?>
 
 
-        <div class="buttons">
-            <a href="./src/forms/formularioBuscarCita.php" class="boton">Buscar Cita</a>
-        </div>
+        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+            <div class="buttons">
+                <a href="./src/forms/formularioBuscarCita.php" class="boton">Buscar Cita</a>
+            </div>
+        <?php endif; ?>
+
 
 
         <?php include './src/html/footer.html'; ?>
