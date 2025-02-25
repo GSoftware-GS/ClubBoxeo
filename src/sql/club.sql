@@ -70,7 +70,7 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `imagen`) VALUES
 (3, 'Anabolizantes', 60.99, '3.jpg'),
 (4, 'Suplemento Pre-Workout 500G', 29.99, '4.jpg'),
 (5, 'Bebida energetica', 4.99, '5.jpg'),
-(8, 'Cafe colombiano', 9.99, '679a229a3efc3.jpg');
+(8, 'Cafe colombiano', 9.99, '2.jpg');
 
 -- --------------------------------------------------------
 
