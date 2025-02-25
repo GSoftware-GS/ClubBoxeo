@@ -167,3 +167,141 @@ Directory structure:
 ## Licencia
 
 Este proyecto está licenciado bajo la [MIT License](LICENSE).
+
+
+# Documentación de la API de Productos
+
+## Introducción
+Esta API permite gestionar productos en una base de datos. Soporta operaciones de lectura, creación, actualización y eliminación de productos mediante los métodos HTTP `GET`, `POST`, `PUT` y `DELETE`.
+
+## Configuración
+- **Formato de respuesta**: JSON
+- **CORS**: Permite solicitudes desde cualquier origen (`*`).
+- **Autenticación**: Se requiere una API Key válida en la URL.
+
+## Endpoints
+
+### Autenticación
+Todas las solicitudes deben incluir una API Key en la URL, por ejemplo:
+```
+GET /api.php/t7q7er9ye1F9OT2tKAcb38yewWoluINX
+```
+Si la API Key es inválida o no se proporciona, se retorna un error:
+```json
+{
+    "status": "error",
+    "message": "API Key inválida o no proporcionada"
+}
+```
+
+---
+### Obtener productos
+#### `GET /api.php/{apiKey}`
+Obtiene todos los productos.
+
+#### `GET /api.php/{apiKey}?nombre={nombre}`
+Filtra productos cuyo nombre contenga `{nombre}`.
+
+#### `GET /api.php/{apiKey}?precio={precio}`
+Filtra productos cuyo precio sea menor a `{precio}`.
+
+#### `GET /api.php/{apiKey}?id={id}`
+Obtiene un producto específico por su ID.
+
+**Ejemplo de respuesta:**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "nombre": "Café",
+            "precio": 3.50,
+            "imagen": "cafe.jpg"
+        }
+    ]
+}
+```
+
+---
+### Crear un producto
+#### `POST /api.php/{apiKey}`
+Crea un nuevo producto.
+
+**Cuerpo de la solicitud (JSON):**
+```json
+{
+    "nombre": "Té Verde",
+    "precio": 2.50,
+    "imagen": "te_verde.jpg"
+}
+```
+
+**Respuesta:**
+```json
+{
+    "status": "success",
+    "message": "Producto creado exitosamente",
+    "id": 2
+}
+```
+
+---
+### Actualizar un producto
+#### `PUT /api.php/{apiKey}`
+Actualiza un producto existente.
+
+**Cuerpo de la solicitud (JSON):**
+```json
+{
+    "id": 1,
+    "nombre": "Café Premium",
+    "precio": 4.00
+}
+```
+
+**Respuesta:**
+```json
+{
+    "status": "success",
+    "message": "Producto actualizado correctamente"
+}
+```
+
+---
+### Eliminar un producto
+#### `DELETE /api.php/{apiKey}`
+Elimina un producto por su ID.
+
+**Cuerpo de la solicitud (JSON):**
+```json
+{
+    "id": 1
+}
+```
+
+**Respuesta:**
+```json
+{
+    "status": "success",
+    "message": "Producto eliminado correctamente"
+}
+```
+
+---
+### Errores comunes
+Si un producto no se encuentra:
+```json
+{
+    "status": "error",
+    "message": "No se encontraron productos con ese ID"
+}
+```
+Si faltan datos requeridos:
+```json
+{
+    "status": "error",
+    "message": "Faltan datos necesarios (nombre, precio, imagen)"
+}
+```
+
